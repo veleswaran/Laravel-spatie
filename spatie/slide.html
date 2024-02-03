@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontal Scrollbar Example</title>
+    <style>
+        .container {
+            width: 100%; /* Set a fixed width for the container */
+            border: 1px solid #ccc;
+            overflow-x: auto; /* Add horizontal scrollbar when content overflows */
+            white-space: nowrap; /* Prevent content from wrapping to the next line */
+        }
+
+        .overflowing-element {
+            width: 400px; /* Set a width larger than the container */
+            height: 50px;
+            background-color: #ffcccc;
+            display: inline-block; /* Allow elements to appear in the same line */
+            margin: 10px; /* Add margin for better visualization */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="overflowing-element"></div>
+        <div class="overflowing-element"></div>
+        <div class="overflowing-element"></div>
+        <div class="overflowing-element"></div>
+        <div class="overflowing-element"></div>
+    </div>
+</body>
+</html>
