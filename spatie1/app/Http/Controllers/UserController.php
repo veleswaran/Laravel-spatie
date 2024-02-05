@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PermissionGroup;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
-class RoleController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $roles = Role::get();
-        return view('admin.roles.show',compact('roles'));
+        $users = User::get();
+        return view('admin.users.show',compact('users'));
+      
     }
 
     /**
@@ -22,10 +23,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-
-        $permissionGroups=PermissionGroup::with('permissions')->get();
-  
-        return view('admin.roles.create',compact('permissionGroups'));
+       return view('admin.users.create');
     }
 
     /**
@@ -33,7 +31,12 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-       return $request;
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make('user@123');
+        $user->save();
+        return redirect()->back()->with("message","user created successfully");
     }
 
     /**

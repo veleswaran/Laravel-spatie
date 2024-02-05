@@ -10,7 +10,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="container mt-3">
-                <a href="{{ url('user') }}" class="btn btn-primary">back</a>
+                <a href="{{ url('dashboard') }}" class="btn btn-primary">back</a>
                 <a href="{{ url('user/create') }}" class="btn btn-primary">create user</a>
                     <table class="table table-dark">
                         <thead>

@@ -10,26 +10,30 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="container mt-3">
-                <a href="{{ url('user') }}" class="btn btn-primary">back</a>
-                <a href="{{ url('user/create') }}" class="btn btn-primary">create user</a>
+                <a href="{{ url('dashboard')}}" class="btn btn-primary">back</a>
+                <a href="{{ url('role/create') }}" class="btn btn-primary">create user</a>
                     <table class="table table-dark">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th>Role Name</th>
+                            <th>Permission</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $user)
+                        @foreach($roles as $role)
                         <tr>
-                            <td>{{$user['id']}}</td>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->email}}</td>
+                            <td>{{$role['id']}}</td>
+                            <td>{{$role->name}}</td>
+                            <td>{{implode(",",$role->permissions->pluck('name')->toArray())}}</td>
                             <td>
-                                <a href="" class="btn btn-danger">Delete</a>
-                                <a href="" class="btn btn-warning">Edit</a>
+                                <form action="role/{{$role['id']}}" method="post">
+                                    @csrf 
+                                    @method('DELETE')
+                                    <button class="btn btn-primary">Delete</button>
+                                </form>
+                                <a href="role/{{$role['id']}}" class="btn btn-warning">Edit</a>
                             </td>
                         </tr>
                         @endforeach

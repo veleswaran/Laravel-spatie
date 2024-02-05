@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __(' Users List') }}
+            {{ __(' Users Roles List') }}
         </h2>
     </x-slot>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,14 +10,14 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="container mt-3">
-                <a href="{{ url('user') }}" class="btn btn-primary">back</a>
-                <a href="{{ url('user/create') }}" class="btn btn-primary">create user</a>
+                <a href="{{ url('dashboard')}}" class="btn btn-primary">back</a>
+                <a href="{{ url('role/create') }}" class="btn btn-primary">assign role to user</a>
                     <table class="table table-dark">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
+                            <th>User Name</th>
+                            <th>Role Name</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -25,11 +25,23 @@
                         @foreach($users as $user)
                         <tr>
                             <td>{{$user['id']}}</td>
-                            <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
                             <td>
-                                <a href="" class="btn btn-danger">Delete</a>
-                                <a href="" class="btn btn-warning">Edit</a>
+                                @if(count($user->roles->pluck('name')->toArray())>0)
+                                    {{implode(",",$user->roles->pluck('name')->toArray())}}
+                                @else
+                                    No Role to assigned
+
+                                @endif
+
+                            </td>
+                            <td>
+                                <form action="assignrole/{{$user['id']}}" method="post">
+                                    @csrf 
+                                    @method('DELETE')
+                                    <button class="btn btn-primary">Delete</button>
+                                </form>
+                                <a href="assignrole/{{$user['id']}}" class="btn btn-warning">Edit</a>
                             </td>
                         </tr>
                         @endforeach
